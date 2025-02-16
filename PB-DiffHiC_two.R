@@ -146,7 +146,7 @@ SCBNM<-function(xx,housekeep,a=0.05)
   return(fw51)
 }
 
-cal_scale=function(Datalist,Hkind){
+cal_scale_two=function(Datalist,Hkind){
   #Create the input data to calculate the scaling factor
   vec_hk=DiagCount=list()
   for (i in seq_along(Datalist)) {
@@ -170,9 +170,13 @@ cal_scale=function(Datalist,Hkind){
   return(factor_vec)
 }
 
-PB_two <- function(Datalist,Scale){
+PB_two <- function(Datalist,Hkind,scale_factor,Scale=TRUE){
   vec <- Datalist
-  factor_vec <- Scale
+  if (Scale){
+    factor_vec <- cal_scale_two(Datalist,Hkind)
+  }else{
+    factor_vec=scale_factor
+  }
   
   ## Calculate p-values and select significants
   # scale_scbn = scale_scbn
@@ -188,4 +192,3 @@ PB_two <- function(Datalist,Scale){
   p_adjust <- p.adjust(exactPadj, method = "BH")
   return(list(pv = exactPadj,qv = p_adjust,scale = factor_vec))
 }
-
