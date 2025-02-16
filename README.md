@@ -24,6 +24,7 @@ library(statmod)
 # Usage
 ## Input
 In the analysis of differential chromatin interactions, we only focused on intra-chromosomal interactions, excluding inter-chromosomal interactions. To speed up file reading and modeling, we chose to create separate files for each chromosome. Since the Hi-C contact matrix is symmetric, we only store the interaction information in the upper triangular part of the matrix, meaning for bin pairs (i, j), we store interactions where i ≤ j.
+
 `PB-DiffHiC` has no specific requirements for input files, as long as R can read them. The input files must store information about the positions of interactions and the contact counts. The input file format can be either a dataframe or a matrix. If the file is a dataframe (.csv, .txt, etc.), each dataframe for a chromosome should contain four columns: (chr, x1, y1, ifs):
 - `chr` - Chromosome of the interaction.
 - `x1` - a start coordinate (in 10kb) of the first bin.
@@ -77,8 +78,8 @@ result=PB_merged(Datalist,Hkind,scale_factor,Scale=TRUE)
 source('PB-DiffHiC_two.R',encoding = 'UTF-8')
 result=PB_two(Datalist,Hkind,scale_factor,Scale=TRUE)
 ```
-- `datalist` - The data list obtained after Gaussian convolution, where the data from different conditions are stored in the list. The two-replicate setup is a general term, and the number of samples per condition can be ≥2.
-- `hkind` - The number of short-range interactions.
+- `Datalist` - The data list obtained after Gaussian convolution, where the data from different conditions are stored in the list. The two-replicate setup is a general term, and the number of samples per condition can be ≥2.
+- `Hkind` - The number of short-range interactions.
 - `scale_factor` - The normalization factor. This parameter can be used to specify the value of the scale factor. In the merged-replicate setup, scale_factor is a single number (e.g., scale_factor = 1); in the two-replicate setup, it is a vector with the length equal to the total number of samples (e.g., in PB-DiffHiC's two-replicate setup, you can set scale_factor = rep(1,4)).
 - `scale` - Whether to compute the normalization factor. If Scale = TRUE, the scale factor will be computed based on short-range interactions, and the specified scale_factor value will be ignored.
 
