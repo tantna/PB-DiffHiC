@@ -57,14 +57,14 @@ gaussfilter = function(mu,sigma,ksize,rawmat,gauss_dis){
 
 
 #data process
-sparse2vec=function(data,test_dis,msize,keepdis,ksize,mu=0,sigma=1,sp2mat=TRUE,gauss=TRUE){
-  if (sp2mat){
+gauss2vec=function(data,test_dis,msize,keepdis,ksize,mu=0,sigma=1,data2mat=TRUE,gauss=TRUE){
+  if (data2mat){
     A=spMatrix(msize,msize,i=data$x1,j=data$y1,x=data$ifs)
   }else{
     A=as.matrix(data)
   }
   if (gauss){
-    A=gaussfilter(mu,sigma,ksize,A,test_dis)
+    A=gaussfilter(mu,sigma,ksize,A,test_dis)data
   }
   h_keep=0
   vec=vector();from=vector();to=vector()
