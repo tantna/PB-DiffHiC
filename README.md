@@ -50,13 +50,13 @@ source('PBdata_preprocess.R',encoding = 'UTF-8')
 gauss2vec(data,test_dis,msize,keepdis,ksize,mu=0,sigma=1,data2mat=TRUE,gauss=TRUE)
 ```
 - `data` - The input data containing the position and contact count information of interactions.
-- `test_dis` - The gene distance range for interactions to be tested. For example, when the resolution is 10kb, if only interactions with a gene distance ≤ 1MB (1,000,000) are to be tested, then test_dis = 1000000 / 10000 + 1 = 101.
-- `msize` - The size of the contact matrix. The chromosome length file is in the ext folder. The size of the matrix is calculated by dividing the chromosome length by the resolution, rounding to the nearest integer, and adding 1.
-- `keepdis` - The size of the housekeeping gene distance. The housekeeping genome will be used for subsequent scale factor calculations. Here, keepdis refers to how many diagonals to select. For example, keepdis = 1 refers to the main diagonal.
-- `ksize` - The size of the Gaussian convolution kernel. In the PB-DiffHiC paper, ksize = 3 was used.
+- `test_dis` - The gene distance range for interactions to be tested. For example, when the resolution is 10kb, if only interactions with a gene distance ≤ 1MB (1,000,000) are to be tested, then `test_dis` = 1000000 / 10000 + 1 = 101.
+- `msize` - The size of the contact matrix. The chromosome length file is in the ext folder. The size of the matrix is calculated by dividing the chromosome length by the resolution, floor to the integer, and adding 1.
+- `keepdis` - The size of the housekeeping gene distance. The housekeeping genome will be used for subsequent scale factor calculations. Here, keepdis refers to how many diagonals to select. For example, `keepdis` = 1 refers to the main diagonal.
+- `ksize` - The size of the Gaussian convolution kernel. In the PB-DiffHiC paper, `ksize` = 3 was used.
 - `mu`, `sigma` - The mean and variance of the Gaussian function, with default values of 0 and 1.
-- `data2mat` - Whether to convert the data into a matrix. If the input data is already a matrix, set data2mat = FALSE.
-- `gauss` - Whether to perform Gaussian convolution. If Gaussian convolution is not needed, set gauss = FALSE.
+- `data2mat` - Whether to convert the data into a matrix. If the input data is already a matrix, set `data2mat` = FALSE.
+- `gauss` - Whether to perform Gaussian convolution. If Gaussian convolution is not needed, set `gauss` = FALSE.
 
 The output obtained from the above function:
 
@@ -80,8 +80,8 @@ result=PB_two(Datalist,Hkind,scale_factor,Scale=TRUE)
 ```
 - `Datalist` - The data list obtained after Gaussian convolution, where the data from different conditions are stored in the list. The two-replicate setup is a general term, and the number of samples per condition can be ≥2.
 - `Hkind` - The number of short-range interactions.
-- `scale_factor` - The normalization factor. This parameter can be used to specify the value of the scale factor. In the merged-replicate setup, scale_factor is a single number (e.g., scale_factor = 1); in the two-replicate setup, it is a vector with the length equal to the total number of samples (e.g., in PB-DiffHiC's two-replicate setup, you can set scale_factor = rep(1,4)).
-- `scale` - Whether to compute the normalization factor. If Scale = TRUE, the scale factor will be computed based on short-range interactions, and the specified scale_factor value will be ignored.
+- `scale_factor` - The normalization factor. This parameter can be used to specify the value of the scale factor. In the merged-replicate setup, scale_factor is a single number (e.g., scale_factor = 1); in the two-replicate setup, it is a vector with the length equal to the total number of samples (e.g., in `PB-DiffHiC`'s two-replicate setup, you can set `scale_factor` = rep(1,4)).
+- `scale` - Whether to compute the normalization factor. If scale = TRUE, the scale factor will be computed based on short-range interactions, and the specified `scale_factor` value will be ignored.
 
 This function will perform hypothesis testing on all interactions in the input data list (datalist), and the results (such as P-values) will be output in the order of datalist. The final outputs are:
 - `pv` - The P-value for each interaction.
