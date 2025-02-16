@@ -1,18 +1,35 @@
 library(SCBN)
 
-PB_merged <- function(Data1,Data2,Hkind){
+cal_scale_merged=function(Datalist,Hkind){
   ##combine two matrix as a matrix,to input SCBN
-  n <- length(Data1)
+  n <- length(Datalist[[1]])
   Hic_mat <- matrix(0,n,4)
-  Hic_mat[,2] <- Data1
-  Hic_mat[,4] <- Data2
+  Hic_mat[,2] <- Datalist[[1]]
+  Hic_mat[,4] <- Datalist[[2]]
+  Hic_mat[,1] = Hic_mat[,3] = 10000  #gene length
+  #print(Hic_mat)
+  factor_scbn <- SCBN(orth_gene=Hic_mat, hkind=1:Hkind, a=0.05)
+  # factor_scbn
+  scale_scbn <- factor_scbn$scbn_val
+  return(scale_scbn)
+}
+
+PB_merged <- function(Datalist,Hkind,scale_factor,Scale=TRUE){
+  ##combine two matrix as a matrix,to input SCBN
+  n <- length(Datalist[[1]])
+  Hic_mat <- matrix(0,n,4)
+  Hic_mat[,2] <- Datalist[[1]]
+  Hic_mat[,4] <- Datalist[[2]]
   Hic_mat[,1] = Hic_mat[,3] = 10000  #gene length
   #print(Hic_mat)
   
   ## Calculate scaling factor for data
-  factor_scbn <- SCBN(orth_gene=Hic_mat, hkind=1:Hkind, a=0.05)
-  # factor_scbn
-  scale_scbn <- factor_scbn$scbn_val
+  if (Scale){
+    # factor_scbn
+    scale_scbn <- cal_scale_merged(Datalist,Hkind)
+  }else{
+    scale_scbn=scale_factor
+  }
   print(scale_scbn)
   
   ## Calculate p-values and select significants
@@ -29,6 +46,5 @@ PB_merged <- function(Data1,Data2,Hkind){
   
   p_adjust <- p.adjust(p_value, method = "BH")
   #head(p_adjust)
-  return(list(hicmat=Hic_mat,pv = p_value,qv=p_adjust,scale_factor=scale_scbn))
+  return(list(pv = p_value,qv=p_adjust,scale=scale_scbn))
 }
-
