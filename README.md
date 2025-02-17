@@ -102,7 +102,7 @@ scale_result=cal_scale_merged(Datalist,Hkind)
 The output will be the scaling factors, which can then be used in hypothesis testing by specifying the `scale_factor` parameter and setting the `Scale` parameter to FALSE.
 
 # Example
-In this example, we will run data from chromosome 19 of the mouse ESC and NPC dataset [(GSE210585)](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE210585) published by [Lee et al.](https://pubmed.ncbi.nlm.nih.gov/37649383/), with a resolution of 10kb. We will focus only on interactions with a gene distance within 1MB(`test_dis`=101), using the first five diagonals of the Hi-C contact matrix as short-range interactions(`keepdis`=5). The size of the Gaussian convolution kernel is set to 3(`ksize`=3). The data is located in the `example` folder.
+In this example, we will use chromosome 19 from the mouse ESC and NPC dataset [(GSE210585)](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE210585) published by [Lee et al.](https://pubmed.ncbi.nlm.nih.gov/37649383/), with a resolution of 10kb. To generate pseudo-bulk Hi-C data, the `bin-step` processed single-cell Hi-C data from [SnapHiC-D](https://pubmed.ncbi.nlm.nih.gov/37649383/) will be combined to create pseudo-bulk Hi-C data. We will focus only on interactions with a gene distance within 1MB(`test_dis`=101), using the first five diagonals of the Hi-C contact matrix as short-range interactions(`keepdis`=5). The size of the Gaussian convolution kernel is set to 3(`ksize`=3). The example pseudo-bulk Hi-C data is located in the `example` folder.
 
 First, we read the chromosome length file and prepare the data:
 ```r
