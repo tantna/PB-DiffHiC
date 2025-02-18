@@ -11,7 +11,7 @@ cal_scale_merged=function(Datalist,Hkind){
   factor_scbn <- SCBN(orth_gene=Hic_mat, hkind=1:Hkind, a=0.05)
   # factor_scbn
   scale_scbn <- factor_scbn$scbn_val
-  return(scale_scbn)
+  return(c(1,scale_scbn))
 }
 
 PB_merged <- function(Datalist,Hkind,scale_factor,Scale=TRUE){
@@ -26,9 +26,9 @@ PB_merged <- function(Datalist,Hkind,scale_factor,Scale=TRUE){
   ## Calculate scaling factor for data
   if (Scale){
     # factor_scbn
-    scale_scbn <- cal_scale_merged(Datalist,Hkind)
+    scale_scbn <- cal_scale_merged(Datalist,Hkind)[2]
   }else{
-    scale_scbn=scale_factor
+    scale_scbn=scale_factor[2]
   }
   print(scale_scbn)
   
