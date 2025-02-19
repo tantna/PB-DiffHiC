@@ -71,34 +71,23 @@ After data processing, the hypothesis testing framework is used to detect differ
 ```r
 #merged-replicate setup
 source('PB-DiffHiC_merged.R',encoding = 'UTF-8')
-PB_merged(Datalist,Hkind,scale_factor,Scale=TRUE)
+cal_scale_merged(Datalist,Hkind)  #Calculate scaling factors under merged-replicate setup
+PB_merged(Datalist,Hkind,scale_factor)
 
 #two-replicate setup
 source('PB-DiffHiC_two.R',encoding = 'UTF-8')
-PB_two(Datalist,Hkind,scale_factor,Scale=TRUE)
+cal_scale_merged(Datalist,Hkind)   #Calculate scaling factors under two-replicate setup
+PB_two(Datalist,Hkind,scale_factor)
 ```
 - `Datalist` - The data list obtained after Gaussian convolution, where data from different conditions are stored in the list. 
 - `Hkind` - The number of short-range interactions.
 - `scale_factor` - This parameter can specify the value of the scaling factors. It is a vector with the length equal to the total number of samples (e.g., in `PB-DiffHiC`'s two-replicate setup, you can set `scale_factor` = rep(1,4)).
-- `Scale` - Whether to compute the scaling factors. If `Scale` = TRUE, the scaling factors will be computed based on short-range interactions, and the specified `scale_factor` value will be ignored.
 
-This function will perform hypothesis testing on all interactions in the input data list (`Datalist`), and the results (such as P-values) will be output in the order of datalist. The final outputs are:
+The output of the `cal_scale_merged` function and the `cal_scale_two` function is a numeric vector, where the first element is always 1.The resulting vector can be used as the scaling factors specified in the hypothesis testing function.
+
+`PB_merged` function and `PB_two` function will perform hypothesis testing on all interactions in the input data list (`Datalist`), and the results (such as P-values) will be output in the order of datalist. The final outputs are:
 - `pv` - The P-value for each interaction.
 - `qv` - The P-value for each interaction adjusted using the Benjamini-Hochberg method (BH).
-- `scale` - The scaling factors computed using short-range interactions.
-
-If you only need the scaling factors, you can directly call the function to compute them:
-```r
-#merged-replicate setup
-source('PB-DiffHiC_merged.R',encoding = 'UTF-8')
-scale_result=cal_scale_merged(Datalist,Hkind)
-```
-```r
-#two-replicate setup
-source('PB-DiffHiC_two.R',encoding = 'UTF-8')
-scale_result=cal_scale_merged(Datalist,Hkind)
-```
-The output will be the scaling factors, which can then be used in hypothesis testing by specifying the `scale_factor` parameter and setting `Scale=FALSE`.
 
 # Example
 In this example, we will use chromosome 19 from the mouse ESC and NPC dataset [(GSE210585)](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE210585) published by [Lee et al.](https://pubmed.ncbi.nlm.nih.gov/37649383/), with a resolution of 10kb. To generate pseudo-bulk Hi-C data, the `bin-step` processed single-cell Hi-C data from [SnapHiC-D](https://pubmed.ncbi.nlm.nih.gov/37649383/) will be combined. We will focus on interactions with a gene distance within 1MB(`test_dis=101`), using the first five diagonals of the Hi-C contact matrix as short-range interactions(`keepdis=5`). The size of the Gaussian convolution kernel is set to 3(`ksize=3`). Example pseudo-bulk Hi-C data is located in the `example` folder.
@@ -129,16 +118,18 @@ for (j in seq_along(filelist)){
 }
 HkeepCount=Hicvec$h_keep #Count of short-range interactions
 ```
-Subsequently, calculate the scaling factors and perform hypothesis testing to obtain the p-value:
+Subsequently, calculate the scaling factors and perform hypothesis testing to obtain the p-value or q-value(adjusted-p value):
 ```r
 #merged-replicate setup
 source('PB-DiffHiC_merged.R',encoding = 'UTF-8')
-result=PB_merged(datalist,HkeepCount,rep(1,2),Scale=TRUE)
+scale_result=cal_scale_merged(datalist,HkeepCount)
+result=PB_merged(datalist,HkeepCount,scale_result)
 ```
 ```r
 #two-replicate setup
 source('PB-DiffHiC_two.R',encoding = 'UTF-8')
-result=PB_two(datalist,HkeepCount,rep(1,4),Scale=TRUE)
+scale_result=cal_scale_merged(datalist,HkeepCount)
+result=PB_two(datalist,HkeepCount,scale_result)
 ```
 Finally, integrate the results:
 ```r
