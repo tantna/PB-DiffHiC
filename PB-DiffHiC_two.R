@@ -186,5 +186,5 @@ PB_two <- function(Datalist,Hkind,scale_factor){
                                meanMatrix = expMeanAdj, verbose = TRUE)
 
   p_adjust <- p.adjust(exactPadj, method = "BH")
-  return(list(pv = exactPadj,qv = p_adjust,scale = factor_vec))
+  return(list(pv = exactPadj,qv = p_adjust))
 }
