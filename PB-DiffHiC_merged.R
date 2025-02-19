@@ -14,7 +14,7 @@ cal_scale_merged=function(Datalist,Hkind){
   return(c(1,scale_scbn))
 }
 
-PB_merged <- function(Datalist,Hkind,scale_factor,Scale=TRUE){
+PB_merged <- function(Datalist,Hkind,scale_factor){
   ##combine two matrix as a matrix,to input SCBN
   n <- length(Datalist[[1]])
   Hic_mat <- matrix(0,n,4)
@@ -22,14 +22,8 @@ PB_merged <- function(Datalist,Hkind,scale_factor,Scale=TRUE){
   Hic_mat[,4] <- Datalist[[2]]
   Hic_mat[,1] = Hic_mat[,3] = 10000  #gene length
   #print(Hic_mat)
-  
-  ## Calculate scaling factor for data
-  if (Scale){
-    # factor_scbn
-    scale_scbn <- cal_scale_merged(Datalist,Hkind)[2]
-  }else{
-    scale_scbn=scale_factor[2]
-  }
+  # factor_scbn
+  scale_scbn=scale_factor[2]
   print(scale_scbn)
   
   ## Calculate p-values and select significants
