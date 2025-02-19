@@ -170,13 +170,9 @@ cal_scale_two=function(Datalist,Hkind){
   return(factor_vec)
 }
 
-PB_two <- function(Datalist,Hkind,scale_factor,Scale=TRUE){
+PB_two <- function(Datalist,Hkind,scale_factor){
   vec <- Datalist
-  if (Scale){
-    factor_vec <- cal_scale_two(Datalist,Hkind)
-  }else{
-    factor_vec=scale_factor
-  }
+  factor_vec=scale_factor
   
   ## Calculate p-values and select significants
   # scale_scbn = scale_scbn
