@@ -122,7 +122,8 @@ SCBNM<-function(xx,housekeep,a=0.05)
   library(edgeR)
   library(statmod)
   fW <- calcNormFactors(xx,logratioTrim=0.3, sumTrim=0.05)[2]
-  fW4<-seq(fW-0.5,fW+0.5,0.1)
+  mins=fW-fW%/%0.1*0.1
+  fW4<-seq(max(mins,fW-0.5),fW+0.5,0.1)
   q4<-rep(0,length(xx[,1]))
   n<-length(fW4)
   fdr<-rep(0,n)
@@ -132,7 +133,8 @@ SCBNM<-function(xx,housekeep,a=0.05)
     fdr[j]<-sum(sMm4[housekeep]<a)
   }
   fw5<-fW4[which.min(abs(fdr-a))]
-  fW41<-seq(fw5-0.25,fw5+0.25,0.005)
+  mins5=fw5-fw5%/%0.005*0.005
+  fW41<-seq(max(mins5,fw5-0.25),fw5+0.25,0.005)
   q41<-rep(0,length(xx[,1]))
   n1<-length(fW41)
   fdr1<-rep(0,n1)
