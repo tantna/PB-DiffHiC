@@ -67,7 +67,7 @@ The output obtained from the above function:
 ## Hypothesis testing
 A unified testing framework is provided for both the merged-replicate setup and the two-replicate setup.
 
-After data processing, the hypothesis testing framework is used to detect differential chromatin interactions. Due to variation in contact counts between conditions, scaling factors are first calculated to reduce this variation. Based on these scaling factors, hypothesis testing is then performed to obtain the P-value for each interaction.
+After data processing, the hypothesis testing framework is used to detect differential chromatin interactions. Due to biases in contact counts between conditions, scaling factors are first calculated to minimize biases. Based on these scaling factors, hypothesis testing is then performed to obtain the P-value for each interaction.
 ```r
 #merged-replicate setup
 source('PB-DiffHiC_merged.R',encoding = 'UTF-8')
@@ -77,7 +77,7 @@ PB_merged(Datalist,Hkind,scale_factor,Scale=TRUE)
 source('PB-DiffHiC_two.R',encoding = 'UTF-8')
 PB_two(Datalist,Hkind,scale_factor,Scale=TRUE)
 ```
-- `Datalist` - The data list obtained after Gaussian convolution, where data from different conditions are stored in the list. The two-replicate setup is a general term, and the number of samples per condition can be ≥2.
+- `Datalist` - The data list obtained after Gaussian convolution, where data from different conditions are stored in the list. 
 - `Hkind` - The number of short-range interactions.
 - `scale_factor` - This parameter can specify the value of the scaling factors. It is a vector with the length equal to the total number of samples (e.g., in `PB-DiffHiC`'s two-replicate setup, you can set `scale_factor` = rep(1,4)).
 - `Scale` - Whether to compute the scaling factors. If `Scale` = TRUE, the scaling factors will be computed based on short-range interactions, and the specified `scale_factor` value will be ignored.
