@@ -40,5 +40,5 @@ PB_merged <- function(Datalist,Hkind,scale_factor){
   
   p_adjust <- p.adjust(p_value, method = "BH")
   #head(p_adjust)
-  return(list(pv = p_value,qv=p_adjust,scale=scale_scbn))
+  return(list(pv = p_value,qv=p_adjust))
 }
