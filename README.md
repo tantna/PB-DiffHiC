@@ -128,7 +128,7 @@ result=PB_merged(datalist,HkeepCount,scale_result)
 ```r
 #two-replicate setup
 source('PB-DiffHiC_two.R',encoding = 'UTF-8')
-scale_result=cal_scale_merged(datalist,HkeepCount)
+scale_result=cal_scale_two(datalist,HkeepCount)
 result=PB_two(datalist,HkeepCount,scale_result)
 ```
 Finally, integrate the results:
