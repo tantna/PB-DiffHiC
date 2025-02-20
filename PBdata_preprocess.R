@@ -64,7 +64,7 @@ gauss2vec=function(data,test_dis,msize,keepdis,ksize,mu=0,sigma=1,data2mat=TRUE,
     A=as.matrix(data)
   }
   if (gauss){
-    A=gaussfilter(mu,sigma,ksize,A,test_dis)data
+    A=gaussfilter(mu,sigma,ksize,A,test_dis)
   }
   h_keep=0
   vec=vector();from=vector();to=vector()
