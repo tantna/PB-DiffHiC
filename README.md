@@ -109,6 +109,7 @@ filelist=c('example/two_samples/ESC_chr19_s1.csv','example/two_samples/ESC_chr19
 ```
 Then apply Gaussian convolution to the data and perform straightening and filling:
 ```r
+source('PBdata_preprocess.R',encoding = 'UTF-8')
 datalist=list()
 for (j in seq_along(filelist)){
   print(sprintf('file %s is doing!!!',j))
@@ -133,5 +134,5 @@ result=PB_two(datalist,HkeepCount,scale_result)
 ```
 Finally, integrate the results:
 ```r
-result_frame=data.frame(chr='chr19',x1=hicvec$from,y1=hicvec$to,pv=result$pv)
+result_frame=data.frame(chr='chr19',x1=Hicvec$from,y1=Hicvec$to,pv=result$pv)
 ```
