@@ -100,7 +100,7 @@ msize=chrom_size[19,2]%/%binsize+1
 ```
 ```r
 #merged-replicate setup
-filelist=c('example/two_samples/ESC_chr19_pseudo.csv','example/two_samples/ESC_chr19_pseudo.csv')
+filelist=c('example/merged_data/ESC_chr19_pseudo.csv','example/merged_data/ESC_chr19_pseudo.csv')
 ```
 ```r
 #two-replicate setup
@@ -113,7 +113,7 @@ datalist=list()
 for (j in seq_along(filelist)){
   print(sprintf('file %s is doing!!!',j))
   df=read.csv(filelist[j])
-  Hicvec=gauss2vec(df,101,msize,5,3,mu=0,sigma=1,sp2mat=TRUE,gauss=TRUE)
+  Hicvec=gauss2vec(df,101,msize,5,3,mu=0,sigma=1,data2mat=TRUE,gauss=TRUE)
   datalist[[j]]=Hicvec$vec
 }
 HkeepCount=Hicvec$h_keep #Count of short-range interactions
