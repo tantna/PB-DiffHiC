@@ -81,22 +81,22 @@ PB_two(Datalist,Hkind,scale_factor)
 ```
 - `Datalist` - The data list obtained after Gaussian convolution, where data from different conditions are stored in the list. 
 - `Hkind` - The number of short-range interactions.
-- `scale_factor` - This parameter can specify the value of the scaling factors or to directly utilize the calculated scaling factors. It is a vector with the length equal to the total number of samples (e.g., in `PB-DiffHiC`'s two-replicate setup, you can set `scale_factor` = rep(1,4)).
+- `scale_factor` - This parameter can specify the value of the scaling factors or directly utilize the calculated scaling factors. It is a vector with the length equal to the total number of samples (e.g., In `PB-DiffHiC`'s two-replicate setup, you can set `scale_factor` = rep(1,4)).
 
-The output of the `cal_scale_merged` function and the `cal_scale_two` function is a numeric vector, where the first element is always 1.The resulting vector can be used as the scaling factors specified in the hypothesis testing function.
+The output of the `cal_scale_merged` function and the `cal_scale_two` function is a numeric vector, where the first element is always 1.
 
-`PB_merged` function and `PB_two` function will perform hypothesis testing on all interactions in the input data list (`Datalist`), and the results (such as P-values) will be output in the order of datalist. The final outputs are:
+`PB_merged` function and `PB_two` function will perform hypothesis testing on all interactions in the input data list (`Datalist`), and the results (such as P-values) will be output in the order of `Datalist`. The final outputs are:
 - `pv` - The P-value for each interaction.
 - `qv` - The P-value for each interaction adjusted using the Benjamini-Hochberg method (BH).
 
 # Example
 In this example, we will use chromosome 19 from the mouse ESC and NPC dataset [(GSE210585)](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE210585) published by [Lee et al.](https://pubmed.ncbi.nlm.nih.gov/37649383/), with a resolution of 10kb. To generate pseudo-bulk Hi-C data, the `bin-step` processed single-cell Hi-C data from [SnapHiC-D](https://pubmed.ncbi.nlm.nih.gov/37649383/) will be combined. We will focus on interactions with a gene distance within 1MB(`test_dis=101`), using the first five diagonals of the Hi-C contact matrix as short-range interactions(`keepdis=5`). The size of the Gaussian convolution kernel is set to 3(`ksize=3`). Example pseudo-bulk Hi-C data is located in the `example` folder.
 
-First, we read the chromosome length file and prepare the data:
+First, we read the chromosome length file and prepare the datapath:
 ```r
 binsize=10000
 chrom_size=read.csv('ext/mouse_chromsize.txt',sep='\t',header=FALSE)
-msize=chrom_size[19,2]%/%binsize+1
+msize=chrom_size[19,2]%/%binsize+1 #"19" stands for chromosome 19
 ```
 ```r
 #merged-replicate setup
@@ -134,5 +134,5 @@ result=PB_two(datalist,HkeepCount,scale_result)
 ```
 Finally, integrate the results:
 ```r
-result_frame=data.frame(chr='chr19',x1=Hicvec$from,y1=Hicvec$to,pv=result$pv)
+result_frame=data.frame(chr='chr19',x1=Hicvec$from,y1=Hicvec$to,pv=result$pv,qv=result$qv)
 ```
