@@ -76,7 +76,7 @@ PB_merged(Datalist,Hkind,scale_factor)
 
 #two-replicate setup
 source('PB-DiffHiC_two.R',encoding = 'UTF-8')
-cal_scale_merged(Datalist,Hkind)   #Calculate scaling factors under two-replicate setup
+cal_scale_two(Datalist,Hkind)   #Calculate scaling factors under two-replicate setup
 PB_two(Datalist,Hkind,scale_factor)
 ```
 - `Datalist` - The data list obtained after Gaussian convolution, where data from different conditions are stored in the list. 
