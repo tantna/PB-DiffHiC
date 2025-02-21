@@ -81,7 +81,7 @@ PB_two(Datalist,Hkind,scale_factor)
 ```
 - `Datalist` - The data list obtained after Gaussian convolution, where data from different conditions are stored in the list. 
 - `Hkind` - The number of short-range interactions.
-- `scale_factor` - This parameter can specify the value of the scaling factors. It is a vector with the length equal to the total number of samples (e.g., in `PB-DiffHiC`'s two-replicate setup, you can set `scale_factor` = rep(1,4)).
+- `scale_factor` - This parameter can specify the value of the scaling factors or to directly utilize the calculated scaling factors. It is a vector with the length equal to the total number of samples (e.g., in `PB-DiffHiC`'s two-replicate setup, you can set `scale_factor` = rep(1,4)).
 
 The output of the `cal_scale_merged` function and the `cal_scale_two` function is a numeric vector, where the first element is always 1.The resulting vector can be used as the scaling factors specified in the hypothesis testing function.
 
