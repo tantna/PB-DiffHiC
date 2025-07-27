@@ -92,7 +92,7 @@ The output of the `cal_scale_merged` function and the `cal_scale_two` function i
 # Example
 In this example, we will use chromosome 19 from the mouse ESC and NPC dataset [(GSE210585)](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE210585) published by [Lee et al.](https://pubmed.ncbi.nlm.nih.gov/37649383/), with a resolution of 10kb. To generate pseudo-bulk Hi-C data, the `bin-step` processed single-cell Hi-C data from [SnapHiC-D](https://pubmed.ncbi.nlm.nih.gov/37649383/) will be combined. We will focus on interactions with a gene distance within 1MB(`test_dis=101`), using the first five diagonals of the Hi-C contact matrix as short-range interactions(`keepdis=5`). The size of the Gaussian convolution kernel is set to 3(`ksize=3`). Example pseudo-bulk Hi-C data is located in the `example` folder.
 
-First, we read the chromosome length file and prepare the datapath:
+First, we read the chromosome length file and prepare the datapath, If you are using human cells, you can replace the `mouse_chromsize.txt` with the `human_chromsize.txt`:
 ```r
 binsize=10000
 chrom_size=read.csv('ext/mouse_chromsize.txt',sep='\t',header=FALSE)
@@ -119,7 +119,7 @@ for (j in seq_along(filelist)){
 }
 HkeepCount=Hicvec$h_keep #Count of short-range interactions
 ```
-Subsequently, calculate the scaling factors and perform hypothesis testing to obtain the p-value or q-value(adjusted-p value):
+Subsequently, calculate the scaling factors and perform hypothesis testing to obtain the P-value or Q-value(adjusted-P value):
 ```r
 #merged-replicate setup
 source('PB-DiffHiC_merged.R',encoding = 'UTF-8')
@@ -136,3 +136,25 @@ Finally, integrate the results:
 ```r
 result_frame=data.frame(chr='chr19',x1=Hicvec$from,y1=Hicvec$to,pv=result$pv,qv=result$qv)
 ```
+The exported results for chromosome 19 can be found in the `example/merged_data` and `example/two_samples`, where interactions with a P-value less than 0.05 have been selected.
+```r
+#merged-replicate setup
+chr	x1	y1	pv	qv
+chr19	1206	1206	0.0222965785438641	1
+chr19	3459	3459	0.00188189429068773	1
+chr19	3460	3460	0.0103714137289064	1
+chr19	3991	3991	0.0284027579264619	1
+chr19	582	583	0.0339072747924544	1
+chr19	1205	1206	0.0133741265804447	1
+```
+```r
+#two-replicate setup
+chr	x1	y1	pv	qv
+chr19	308	308	0.0420727883615233	1
+chr19	312	312	0.0179722115549897	1
+chr19	374	374	0.00349361143720519	1
+chr19	399	399	0.0355235071868897	1
+chr19	437	437	0.0074436712483457	1
+chr19	492	492	0.0289789865571554	1
+```
+If you do not want p-values adjusted based on the entire chromosome, you can directly export all the raw P-values for further processing.
