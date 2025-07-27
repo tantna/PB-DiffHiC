@@ -87,7 +87,7 @@ The output of the `cal_scale_merged` function and the `cal_scale_two` function i
 
 `PB_merged` function and `PB_two` function will perform hypothesis testing on all interactions in the input data list (`Datalist`), and the results (such as P-values) will be output in the order of `Datalist`. The final outputs are:
 - `pv` - The P-value for each interaction.
-- `qv` - The P-value for each interaction adjusted using the Benjamini-Hochberg method (BH).
+- `qv` - The P-value for each interaction adjusted using the Benjamini-Hochberg method (BH) based on the entire chromosome.
 
 # Example
 In this example, we will use chromosome 19 from the mouse ESC and NPC dataset [(GSE210585)](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE210585) published by [Lee et al.](https://pubmed.ncbi.nlm.nih.gov/37649383/), with a resolution of 10kb. To generate pseudo-bulk Hi-C data, the `bin-step` processed single-cell Hi-C data from [SnapHiC-D](https://pubmed.ncbi.nlm.nih.gov/37649383/) will be combined. We will focus on interactions with a gene distance within 1MB(`test_dis=101`), using the first five diagonals of the Hi-C contact matrix as short-range interactions(`keepdis=5`). The size of the Gaussian convolution kernel is set to 3(`ksize=3`). Example pseudo-bulk Hi-C data is located in the `example` folder.
