@@ -158,3 +158,5 @@ chr19	437	437	0.0074436712483457	1
 chr19	492	492	0.0289789865571554	1
 ```
 If you do not want P-values adjusted based on the entire chromosome, you can directly export all the raw P-values for further processing.
+# Contact us
+For any questions regarding this code, contact Liuting Tan(tanliuting2022@email.szu.edu.cn), Yan Zhou(zhouy1016@szu.edu.cn), or Dechao Tian(tiandch@mail.sysu.edu.cn).
