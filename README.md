@@ -100,7 +100,7 @@ msize=chrom_size[19,2]%/%binsize+1 #"19" stands for chromosome 19
 ```
 ```r
 #merged-replicate setup
-filelist=c('example/merged_data/ESC_chr19_pseudo.csv','example/merged_data/ESC_chr19_pseudo.csv')
+filelist=c('example/merged_data/ESC_chr19_pseudo.csv','example/merged_data/NPC_chr19_pseudo.csv')
 ```
 ```r
 #two-replicate setup
