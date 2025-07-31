@@ -1,5 +1,5 @@
 # Introduction
-`PB-DiffHiC` is a new optimized parametric statistical framework that directly analyzes the non-imputed pseudo-bulk Hi-C data at 10 Kb resolution. It incorporates Gaussian convolution, stability of short-range interactions, and Poisson distribution to enable joint normalization and detection of significant differential chromatin interactions between conditions.
+`PB-DiffHiC` is a new optimized parametric statistical framework that directly analyzes the raw pseudo-bulk Hi-C data at 10 Kb resolution between conditions. It incorporates Gaussian convolution, the stability of short-range interactions, and Poisson modeling to jointly perform normalization and statistical testing.
 
 `PB-DiffHiC` provides a unified framework for two primary setups(merged-replicate setup and two-replicate setup) and consists of two key steps:
 - Applying Gaussian convolution to enhance interaction signals in pseudo-bulk Hi-C data.
